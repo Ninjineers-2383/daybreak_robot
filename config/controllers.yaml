@@ -1,0 +1,10 @@
+controller_manager:
+  ros__parameters:
+    update_rate: 30
+    # user_sim_time: true
+
+    joint_broad:
+      type: joint_state_broadcaster/JointStateBroadcaster
+joinr_broad:
+  ros__parameters:
+    update_rate: 30
