@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <xacro:macro name="swerve_wheel_control" params="prefix">
+        <ros2_control name="${prefix}_wheel_rotate"
+            type="${'system' if sim else 'actuator'}">
+            <hardware>
+                <xacro:if value="${sim}">
+                    <plugin>gz_ros2_control/GazeboSimSystem</plugin>
+                </xacro:if>
+                <xacro:unless value="${sim}">
+                    <plugin>roborio_bridge/RoboRIOTalonSRX</plugin>
+                </xacro:unless>
+            </hardware>
+            <joint name="${prefix}_wheel_rotate_joint">
+                <command_interface name="position" />
+                <state_interface name="position" />
+                <state_interface name="velocity" />
+            </joint>
+            <transmission name="transmission1">
+                <plugin>transmission_interface/SimpleTransmission</plugin>
+                <joint name="${prefix}_wheel_rotate_joint" role="${prefix}_wheel_rotate_joint">
+                    <mechanical_reduction>${150/7}</mechanical_reduction>
+                </joint>
+            </transmission>
+        </ros2_control>
+
+        <ros2_control name="${prefix}_wheel"
+            type="${'system' if sim else 'actuator'}">
+            <hardware>
+                <xacro:if value="${sim}">
+                    <plugin>gz_ros2_control/GazeboSimSystem</plugin>
+                </xacro:if>
+                <xacro:unless value="${sim}">
+                    <plugin>roborio_bridge/RoboRIOTalonSRX</plugin>
+                </xacro:unless>
+            </hardware>
+            <joint name="${prefix}_wheel_joint">
+                <command_interface name="velocity" />
+                <state_interface name="position" />
+                <state_interface name="velocity" />
+            </joint>
+            <transmission name="transmission1">
+                <plugin>transmission_interface/SimpleTransmission</plugin>
+                <joint name="${prefix}_wheel_joint" role="${prefix}_wheel_joint">
+                    <mechanical_reduction>6.12</mechanical_reduction>
+                </joint>
+            </transmission>
+        </ros2_control>
+    </xacro:macro>
+
+    <xacro:swerve_wheel_control prefix="front_left" />
+    <xacro:swerve_wheel_control prefix="front_right" />
+    <xacro:swerve_wheel_control prefix="rear_left" />
+    <xacro:swerve_wheel_control prefix="rear_right" />
+</robot>

@@ -1,7 +1,19 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="robot">
+    <xacro:arg name="sim" default="false" />
+    <xacro:property name="sim" value="$(arg sim)" />
 
-    <xacro:include filename="robot_core.xacro" />
-    <xacro:include filename="ros2_control.xacro" />
+    <xacro:include filename="$(find daybreak_robot)/description/inertial_macros.xacro" />
+    <xacro:include filename="$(find daybreak_robot)/description/colors.xacro" />
 
+    <xacro:include filename="$(find daybreak_robot)/description/robot_drivetrain.xacro" />
+    <xacro:include filename="$(find daybreak_robot)/description/robot_core.xacro" />
+
+    <gazebo>
+        <plugin filename="libgz_ros2_control-system.so"
+            name="gz_ros2_control::GazeboSimROS2ControlPlugin">
+            <parameters>$(find daybreak_robot)/config/controllers.yaml</parameters>
+            <parameters>$(find daybreak_robot)/config/gaz_ros2_ctl_sim.yaml</parameters>
+        </plugin>
+    </gazebo>
 </robot>

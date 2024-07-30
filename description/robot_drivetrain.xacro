@@ -1,0 +1,99 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+
+    <!-- BASE LINK -->
+
+    <link name="base_link">
+
+    </link>
+
+    <!-- CHASSIS LINK -->
+
+    <joint name="chassis_joint" type="fixed">
+        <parent link="base_link" />
+        <child link="chassis" />
+        <origin xyz="0 0 0.1" />
+    </joint>
+
+    <link name="chassis">
+        <visual>
+            <origin xyz="0 0 ${0.00635/2}" />
+            <geometry>
+                <box size="0.635 0.635 0.00635" />
+            </geometry>
+            <material name="white" />
+        </visual>
+        <collision>
+            <origin xyz="0 0 ${0.00635/2}" />
+            <geometry>
+                <box size="0.635 0.635 0.00635" />
+            </geometry>
+        </collision>
+        <xacro:inertial_box mass="0.5" x="0.635" y="0.635" z="0.00635">
+            <origin xyz="0 0 0" rpy="0 0 0" />
+        </xacro:inertial_box>
+    </link>
+
+    <xacro:macro name="swerve_wheel" params="prefix xyz">
+        <link name="${prefix}_wheel_rotate">
+            <visual>
+                <geometry>
+                    <cylinder radius="0.05" length="0.001" />
+                </geometry>
+                <origin rpy="0 0 0" />
+                <material name="blue" />
+            </visual>
+            <collision>
+                <geometry>
+                    <cylinder radius="0.05" length="0.001" />
+                </geometry>
+                <origin rpy="0 0 0" />
+            </collision>
+            <xacro:inertial_cylinder mass="0.1" radius="0.05" length="0.001">
+                <origin xyz="0 0 0" rpy="0 0 0" />
+            </xacro:inertial_cylinder>
+        </link>
+
+        <joint name="${prefix}_wheel_rotate_joint" type="continuous">
+            <parent link="chassis" />
+            <child link="${prefix}_wheel_rotate" />
+            <origin xyz="${xyz}" rpy="0 0 0" />
+            <axis xyz="0 0 1" />
+        </joint>
+
+
+        <joint name="${prefix}_wheel_joint" type="continuous">
+            <parent link="${prefix}_wheel_rotate" />
+            <child link="${prefix}_wheel" />
+            <origin xyz="0 0 -0.05" rpy="0 0 0" />
+            <axis xyz="0 1 0" />
+        </joint>
+
+        <link name="${prefix}_wheel">
+            <visual>
+                <geometry>
+                    <cylinder radius="0.05" length="0.04" />
+                </geometry>
+                <origin rpy="-${pi/2} 0 0" />
+                <material name="blue" />
+            </visual>
+            <collision>
+                <geometry>
+                    <cylinder radius="0.05" length="0.04" />
+                </geometry>
+                <origin rpy="-${pi/2} 0 0" />
+            </collision>
+            <xacro:inertial_cylinder mass="0.1" radius="0.05" length="0.04">
+                <origin xyz="0 0 0" rpy="0 0 0" />
+            </xacro:inertial_cylinder>
+        </link>
+    </xacro:macro>
+
+    <xacro:swerve_wheel prefix="front_left" xyz="0.3175 0.3175 0" />
+    <xacro:swerve_wheel prefix="front_right" xyz="0.3175 -0.3175 0" />
+    <xacro:swerve_wheel prefix="rear_left" xyz="-0.3175 0.3175 0" />
+    <xacro:swerve_wheel prefix="rear_right" xyz="-0.3175 -0.3175 0" />
+
+    <xacro:include filename="$(find daybreak_robot)/description/ros2_control_drivetrain.xacro" />
+</robot>
