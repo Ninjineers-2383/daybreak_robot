@@ -15,15 +15,36 @@ joint_broad:
 
 swerve_drive_controller:
   ros__parameters:
-    wheel_joint_names:
-      - front_left_wheel_joint
-      - front_right_wheel_joint
-      - rear_left_wheel_joint
-      - rear_right_wheel_joint
-    steer_joint_names:
-      - front_left_wheel_rotate_joint
-      - front_right_wheel_rotate_joint
-      - rear_left_wheel_rotate_joint
-      - rear_right_wheel_rotate_joint
-    wheelbase: 0.635
-    trackwidth: 0.635
+    wheel_names:
+      - front_left
+      - front_right
+      - rear_left
+      - rear_right
+    
+    joints:
+      front_left:
+        steer: front_left_wheel_rotate_joint
+        wheel: front_left_wheel_joint
+      front_right:
+        steer: front_right_wheel_rotate_joint
+        wheel: front_right_wheel_joint
+      rear_left:
+        steer: rear_left_wheel_rotate_joint
+        wheel: rear_left_wheel_joint
+      rear_right:
+        steer: rear_right_wheel_rotate_joint
+        wheel: rear_right_wheel_joint
+
+    translations:
+      front_left:
+        x: 0.3175
+        y: 0.3175
+      front_right:
+        x: 0.3175
+        y: -0.3175
+      rear_left:
+        x: -0.3175
+        y: 0.3175
+      rear_right:
+        x: -0.3175
+        y: -0.3175
