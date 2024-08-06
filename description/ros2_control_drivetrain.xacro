@@ -46,6 +46,11 @@
                 </joint>
             </transmission>
         </ros2_control>
+
+        <gazebo reference="${prefix}_wheel">
+            <mu1>1.16</mu1>
+            <mu2>1.16</mu2>
+        </gazebo>
     </xacro:macro>
 
     <xacro:swerve_wheel_control prefix="front_left" />
