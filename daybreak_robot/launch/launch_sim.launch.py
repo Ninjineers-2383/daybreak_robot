@@ -32,6 +32,25 @@ def generate_launch_description():
                     get_package_share_directory('ros_gz_sim'), 'launch', 'gz_sim.launch.py')]),
                 launch_arguments=[('gz_args', [' -r -v 4 empty.sdf']), ('debugger', 'false')]
              )
+    
+    start_gazebo_ros_bridge_cmd = Node(
+        package='ros_gz_bridge',
+        executable='parameter_bridge',
+        arguments=[
+            '--ros-args',
+            '-p',
+            f'config_file:={os.path.join(
+                    get_package_share_directory(package_name),'params','bridge_params.yaml'
+                )}',
+        ],
+        output='screen',
+    )
+
+    start_bt_executor = Node(
+        package='daybreak_robot_coordinator',
+        executable='daybreak_bt_executor',
+        parameters=[os.path.join(get_package_share_directory(package_name), 'config', 'daybreak_bt_executor.yaml')]
+    )
 
     # Run the spawner node from the gazebo_ros package. The entity name doesn't really matter if you only have a single robot.
     gz_spawn_entity = Node(
@@ -59,6 +78,8 @@ def generate_launch_description():
     # Launch them all!
     return LaunchDescription([
         gazebo,
+        start_gazebo_ros_bridge_cmd,
+        start_bt_executor,
         RegisterEventHandler(
             event_handler=OnProcessExit(
                 target_action=gz_spawn_entity,

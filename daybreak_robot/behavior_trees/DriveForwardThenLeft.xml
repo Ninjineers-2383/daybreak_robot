@@ -1,0 +1,10 @@
+<root BTCPP_format="4">
+    <BehaviorTree ID="DriveForwardThenLeft">
+        <Sequence>
+            <DriveForSeconds action_name="drive_for_seconds" x="10.0" seconds="10"
+                frame_id="base_link" />
+            <DriveForSeconds action_name="drive_for_seconds" y="10.0" seconds="10"
+                frame_id="base_link" />
+        </Sequence>
+    </BehaviorTree>
+</root>
