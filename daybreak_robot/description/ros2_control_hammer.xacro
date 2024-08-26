@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <ros2_control name="pivot_block" type="system">
+        <hardware>
+            <xacro:if value="${sim}">
+                <plugin>gz_ros2_control/GazeboSimSystem</plugin>
+            </xacro:if>
+            <xacro:unless value="${sim}">
+                <plugin>mock_components/GenericSystem</plugin>
+                <param name="disable_commands">true</param>
+            </xacro:unless>
+        </hardware>
+        <joint name="chassis_to_pivot_block">
+            <state_interface name="position">
+                <param name="initial_value">0</param>
+            </state_interface>
+        </joint>
+    </ros2_control>
+
+    <ros2_control name="hammer"
+        type="${'system' if sim else 'actuator'}">
+        <hardware>
+            <xacro:if value="${sim}">
+                <plugin>gz_ros2_control/GazeboSimSystem</plugin>
+            </xacro:if>
+            <xacro:unless value="${sim}">
+                <plugin>roborio_bridge/RoboRIOTalonSRX</plugin>
+            </xacro:unless>
+        </hardware>
+        <joint name="pivot_block_to_hammer">
+            <command_interface name="position" />
+            <command_interface name="velocity" />
+            <state_interface name="position" />
+            <state_interface name="velocity" />
+        </joint>
+        <transmission name="hammer_gearbox">
+            <plugin>transmission_interface/SimpleTransmission</plugin>
+            <joint name="pivot_block_to_hammer"
+                role="pivot_block_to_hammer">
+                <mechanical_reduction>${150/7}</mechanical_reduction>
+            </joint>
+        </transmission>
+    </ros2_control>
+</robot>

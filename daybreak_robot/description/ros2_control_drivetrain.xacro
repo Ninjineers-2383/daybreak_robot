@@ -11,14 +11,15 @@
                     <plugin>roborio_bridge/RoboRIOTalonSRX</plugin>
                 </xacro:unless>
             </hardware>
-            <joint name="${prefix}_wheel_rotate_joint">
+            <joint name="chassis_to_wheel_rotate_${prefix}">
                 <command_interface name="position" />
                 <state_interface name="position" />
                 <state_interface name="velocity" />
             </joint>
             <transmission name="transmission1">
                 <plugin>transmission_interface/SimpleTransmission</plugin>
-                <joint name="${prefix}_wheel_rotate_joint" role="${prefix}_wheel_rotate_joint">
+                <joint name="chassis_to_wheel_rotate_${prefix}"
+                    role="chassis_to_wheel_rotate_${prefix}">
                     <mechanical_reduction>${150/7}</mechanical_reduction>
                 </joint>
             </transmission>
@@ -34,27 +35,28 @@
                     <plugin>roborio_bridge/RoboRIOTalonSRX</plugin>
                 </xacro:unless>
             </hardware>
-            <joint name="${prefix}_wheel_joint">
+            <joint name="wheel_rotate_${prefix}_to_wheel_spin_${prefix}">
                 <command_interface name="velocity" />
                 <state_interface name="position" />
                 <state_interface name="velocity" />
             </joint>
             <transmission name="transmission1">
                 <plugin>transmission_interface/SimpleTransmission</plugin>
-                <joint name="${prefix}_wheel_joint" role="${prefix}_wheel_joint">
+                <joint name="wheel_rotate_${prefix}_to_wheel_spin_${prefix}"
+                    role="wheel_rotate_${prefix}_to_wheel_spin_${prefix}">
                     <mechanical_reduction>6.12</mechanical_reduction>
                 </joint>
             </transmission>
         </ros2_control>
 
-        <gazebo reference="${prefix}_wheel">
+        <gazebo reference="wheel_spin_${prefix}">
             <mu1>1.16</mu1>
             <mu2>1.16</mu2>
         </gazebo>
     </xacro:macro>
 
-    <xacro:swerve_wheel_control prefix="front_left" />
-    <xacro:swerve_wheel_control prefix="front_right" />
-    <xacro:swerve_wheel_control prefix="rear_left" />
-    <xacro:swerve_wheel_control prefix="rear_right" />
+    <xacro:swerve_wheel_control prefix="fl" />
+    <xacro:swerve_wheel_control prefix="fr" />
+    <xacro:swerve_wheel_control prefix="bl" />
+    <xacro:swerve_wheel_control prefix="br" />
 </robot>

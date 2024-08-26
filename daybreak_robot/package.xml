@@ -13,8 +13,6 @@
   <test_depend>ament_lint_common</test_depend>
 
   <exec_depend>swerve_drive_controller</exec_depend>
-  <exec_depend>drive_action_interfaces</exec_depend>
-  <exec_depend>drive_action_servers</exec_depend>
   <exec_depend>behaviortree_ros2</exec_depend>
   <exec_depend>roborio_bridge</exec_depend>
   <exec_depend>daybreak_robot_coordinator</exec_depend>

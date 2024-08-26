@@ -24,7 +24,7 @@ if(BUILD_TESTING)
 endif()
 
 install(
-  DIRECTORY config description launch params behavior_trees
+  DIRECTORY config description launch params behavior_trees pathplanner/deploy/pathplanner robot_cad
   DESTINATION share/${PROJECT_NAME}
 )
 

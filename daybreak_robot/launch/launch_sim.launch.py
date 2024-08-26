@@ -23,7 +23,19 @@ def generate_launch_description():
     rsp = IncludeLaunchDescription(
                 PythonLaunchDescriptionSource([os.path.join(
                     get_package_share_directory(package_name),'launch','rsp.launch.py'
-                )]), launch_arguments={'sim': 'true'}.items()
+                )]), launch_arguments={'sim': 'true', 'tf_prefix': ''}.items()
+    )
+    
+    rsp2 = IncludeLaunchDescription(
+                PythonLaunchDescriptionSource([os.path.join(
+                    get_package_share_directory(package_name),'launch','rsp.launch.py'
+                )]), launch_arguments={'sim': 'true', 'tf_prefix': '/ghost/', 'name': 'robot_state_publisher_ghost'}.items()
+    )
+
+    pp = IncludeLaunchDescription(
+        PythonLaunchDescriptionSource(os.path.join(
+                    get_package_share_directory(package_name),'launch','launch_pp.launch.py'
+                ))
     )
 
     # Include the Gazebo launch file, provided by the gazebo_ros package
@@ -72,6 +84,11 @@ def generate_launch_description():
              'swerve_drive_controller'],
         output='screen'
     )
+    load_hammer_joint_trajectory_controller = ExecuteProcess(
+        cmd=['ros2', 'control', 'load_controller', '--set-state', 'active',
+             'hammer_trajectory_controller'],
+        output='screen'
+    )
 
 
 
@@ -83,10 +100,12 @@ def generate_launch_description():
         RegisterEventHandler(
             event_handler=OnProcessExit(
                 target_action=gz_spawn_entity,
-                on_exit=[load_joint_state_broadcaster, load_swerve_drive_controller]
+                on_exit=[load_joint_state_broadcaster, load_swerve_drive_controller, load_hammer_joint_trajectory_controller]
             )
         ),
         rsp,
+        rsp2,
+        pp,
         TimerAction(
             period=2.0,
             actions=[gz_spawn_entity]

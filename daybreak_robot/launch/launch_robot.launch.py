@@ -73,6 +73,6 @@ def generate_launch_description():
     return LaunchDescription([
         rsp,
         controller_manager,
-        delayed_joint_state_broadcaster,
+        # delayed_joint_state_broadcaster,
         # delayed_diff_drive_controller
     ])

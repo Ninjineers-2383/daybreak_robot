@@ -1,0 +1,398 @@
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <material name="grey">
+        <color rgba="0.5 0.5 0.5 1" />
+    </material>
+    <link name="chassis">
+        <xacro:chassis />
+        <visual>
+            <material name="grey" />
+            <geometry>
+                <mesh filename="file:///home/henrylec/frc_ws/robot_cad/_0_combined.stl" />
+            </geometry>
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 -0.0 0.0" />
+        </visual>
+    </link>
+    <link name="climber_hook">
+        <xacro:climber_hook />
+        <visual>
+            <material name="grey" />
+            <geometry>
+                <mesh
+                    filename="file:///home/henrylec/frc_ws/robot_cad/MT9KSDaj08jqJpO5K_1_combined.stl" />
+            </geometry>
+            <origin xyz="0.0 0.0 0.0"
+                rpy="-1.2242921368824563e-32 1.0695966697854225e-28 -4.0970047620876e-62" />
+        </visual>
+    </link>
+    <joint name="chassis_to_climber_hook" type="prismatic">
+        <axis xyz="0 0 1" />
+        <limit lower="0" upper="0.1" effort="0" velocity="0" />
+        <origin xyz="0.0 0.0 0.0"
+            rpy="1.2242921368824563e-32 -1.0695966697854225e-28 -1.309448875630117e-60" />
+        <parent link="chassis" />
+        <child link="climber_hook" />
+    </joint>
+    <link name="pivot_block">
+        <xacro:pivot_block />
+        <visual>
+            <material name="grey" />
+            <geometry>
+                <mesh
+                    filename="file:///home/henrylec/frc_ws/robot_cad/MW+BlKV2TSLk6YJNt_1_combined.stl" />
+            </geometry>
+            <origin xyz="-4.656522881383276e-17 0.2603499999999999 -0.6136395397242324"
+                rpy="0.0 -0.0 0.0" />
+        </visual>
+    </link>
+    <joint name="chassis_to_pivot_block" type="prismatic">
+        <axis xyz="0 0 1" />
+        <limit lower="0" upper="0" effort="0" velocity="0" />
+        <origin xyz="4.656522881383276e-17 -0.2603499999999999 0.6136395397242324"
+            rpy="0.0 -0.0 0.0" />
+        <parent link="chassis" />
+        <child link="pivot_block" />
+    </joint>
+    <link name="hammer">
+        <xacro:hammer />
+        <visual>
+            <material name="grey" />
+            <geometry>
+                <mesh
+                    filename="file:///home/henrylec/frc_ws/robot_cad/M9UiT525Mj8lNedBw_MTVpRytivZPN3UUqk_MFmbL5X0jR2T1SKaD_1_combined.stl" />
+            </geometry>
+            <origin xyz="7.807783627740172e-17 -0.5835958609999999 -0.1968499999999999"
+                rpy="-1.5707963267948966 -1.7885626584917543e-16 -3.534449235622677e-48" />
+        </visual>
+    </link>
+    <joint name="pivot_block_to_hammer" type="continuous">
+        <axis xyz="0 0 1" />
+        <origin xyz="-8.943520915882431e-17 0.06350000000000003 -0.030043678724232414"
+            rpy="1.5707963267948966 -0.0 1.7885626584917543e-16" />
+        <parent link="pivot_block" />
+        <child link="hammer" />
+        <limit lower="0" upper="3.14159" effort="1" velocity="1" />
+    </joint>
+    <link name="shooter_wheels_1">
+        <xacro:shooter_wheels_1 />
+        <visual>
+            <material name="grey" />
+            <geometry>
+                <mesh
+                    filename="file:///home/henrylec/frc_ws/robot_cad/M9UiT525Mj8lNedBw_2_combined.stl" />
+            </geometry>
+            <origin xyz="0.2145027819729175 0.374582715963129 -0.16255999999999987"
+                rpy="1.5707963267948966 3.494332159544299e-17 -1.2036518465946433" />
+        </visual>
+    </link>
+    <joint name="hammer_to_shooter_wheels_1" type="continuous">
+        <axis xyz="0 0 1" />
+        <origin xyz="0.272622944655799 -0.2489312757513688 -0.3594099999999997"
+            rpy="-3.141592653589793 5.789358173502531e-17 -1.2036518465946433" />
+        <parent link="hammer" />
+        <child link="shooter_wheels_1" />
+    </joint>
+    <link name="shooter_wheels_2">
+        <xacro:shooter_wheels_2 />
+        <visual>
+            <material name="grey" />
+            <geometry>
+                <mesh
+                    filename="file:///home/henrylec/frc_ws/robot_cad/M9UiT525Mj8lNedBw_4_combined.stl" />
+            </geometry>
+            <origin xyz="0.10020278197291752 0.374582715963129 -0.16255999999999987"
+                rpy="1.5707963267948966 3.494332159544299e-17 -1.2036518465946433" />
+        </visual>
+    </link>
+    <joint name="hammer_to_shooter_wheels_2" type="continuous">
+        <axis xyz="0 0 1" />
+        <origin xyz="0.31365112191798483 -0.35561388291178075 -0.3594099999999997"
+            rpy="-3.141592653589793 5.789358173502531e-17 -1.2036518465946433" />
+        <parent link="hammer" />
+        <child link="shooter_wheels_2" />
+    </joint>
+    <link name="shooter_wheels_3">
+        <xacro:shooter_wheels_3 />
+        <visual>
+            <material name="grey" />
+            <geometry>
+                <mesh
+                    filename="file:///home/henrylec/frc_ws/robot_cad/M9UiT525Mj8lNedBw_5_combined.stl" />
+            </geometry>
+            <origin xyz="-0.10020278197291675 0.3745827159631343 -0.1625600000000002"
+                rpy="-1.5707963267948966 3.897161791978821e-24 -1.9379408069951505" />
+        </visual>
+    </link>
+    <joint name="hammer_to_shooter_wheels_3" type="continuous">
+        <axis xyz="0 0 1" />
+        <origin xyz="0.31365112191798183 -0.3556138829117853 -0.034289999999999626"
+            rpy="-1.6693659874460853e-16 6.420075721636624e-17 1.9379408069951505" />
+        <parent link="hammer" />
+        <child link="shooter_wheels_3" />
+    </joint>
+    <link name="shooter_wheels_4">
+        <xacro:shooter_wheels_4 />
+        <visual>
+            <material name="grey" />
+            <geometry>
+                <mesh
+                    filename="file:///home/henrylec/frc_ws/robot_cad/M9UiT525Mj8lNedBw_3_combined.stl" />
+            </geometry>
+            <origin xyz="-0.21450278197291672 0.3745827159631343 -0.1625600000000002"
+                rpy="-1.5707963267948966 3.897161791978821e-24 -1.9379408069951505" />
+        </visual>
+    </link>
+    <joint name="hammer_to_shooter_wheels_4" type="continuous">
+        <axis xyz="0 0 1" />
+        <origin xyz="0.272622944655797 -0.24893127575137608 -0.034289999999999626"
+            rpy="-1.6693659874460853e-16 6.420075721636624e-17 1.9379408069951505" />
+        <parent link="hammer" />
+        <child link="shooter_wheels_4" />
+    </joint>
+    <link name="intake_top">
+        <xacro:intake_top />
+        <visual>
+            <material name="grey" />
+            <geometry>
+                <mesh
+                    filename="file:///home/henrylec/frc_ws/robot_cad/MW+BlKV2TSLk6YJNt_4_combined.stl" />
+            </geometry>
+            <origin xyz="0.3302000000000003 -0.1327333642 -0.1643384782834142"
+                rpy="-1.5707963267948966 -0.0 0.0" />
+        </visual>
+    </link>
+    <joint name="chassis_to_intake_top" type="continuous">
+        <axis xyz="0 0 1" />
+        <origin xyz="-0.3302000000000003 -0.1643384782834142 0.1327333642"
+            rpy="1.5707963267948966 -0.0 0.0" />
+        <parent link="chassis" />
+        <child link="intake_top" />
+    </joint>
+    <link name="intake_roller_1">
+        <xacro:intake_roller_1 />
+        <visual>
+            <material name="grey" />
+            <geometry>
+                <mesh
+                    filename="file:///home/henrylec/frc_ws/robot_cad/MW+BlKV2TSLk6YJNt_6_combined.stl" />
+            </geometry>
+            <origin xyz="0.33020000000000016 0.17779904343317152 0.01005184248341412"
+                rpy="-3.141592653589793 4.4068773779038136e-17 -7.261988677319971e-32" />
+        </visual>
+    </link>
+    <joint name="intake_top_to_intake_roller_1" type="continuous">
+        <axis xyz="0 0 1" />
+        <origin xyz="1.6653345369377348e-16 -0.12268152171658588 -0.34213752171658574"
+            rpy="1.5707963267948966 -7.261988677319971e-32 -4.4068773779038136e-17" />
+        <parent link="intake_top" />
+        <child link="intake_roller_1" />
+    </joint>
+    <link name="intake_roller_2">
+        <xacro:intake_roller_2 />
+        <visual>
+            <material name="grey" />
+            <geometry>
+                <mesh
+                    filename="file:///home/henrylec/frc_ws/robot_cad/MW+BlKV2TSLk6YJNt_5_combined.stl" />
+            </geometry>
+            <origin xyz="0.3302000000000003 0.17779999999999999 -0.010051842483414175"
+                rpy="-2.465190328815662e-32 -4.4068773779038136e-17 -7.498798913309294e-33" />
+        </visual>
+    </link>
+    <joint name="chassis_to_intake_roller_2" type="continuous">
+        <axis xyz="0 0 1" />
+        <origin xyz="-0.3302000000000003 -0.17779999999999999 0.010051842483414189"
+            rpy="2.465190328815662e-32 4.4068773779038136e-17 7.498798913309295e-33" />
+        <parent link="chassis" />
+        <child link="intake_roller_2" />
+    </joint>
+    <link name="wheel_rotate_br">
+        <xacro:wheel_rotate_br />
+        <visual>
+            <material name="grey" />
+            <geometry>
+                <mesh
+                    filename="file:///home/henrylec/frc_ws/robot_cad/MHi7D2mLxKz2UEbE8_M6JsOBdVntqtC8Vi_MBntFGXJDQrJ6aNt_1_combined.stl" />
+            </geometry>
+            <origin xyz="-0.2762250000000133 0.2762250000000043 -0.150258864328"
+                rpy="-2.2826754578358353e-17 -4.380300013396655e-18 1.5707963267948966" />
+        </visual>
+    </link>
+    <joint name="chassis_to_wheel_rotate_br" type="continuous">
+        <axis xyz="0 0 1" />
+        <origin xyz="-0.2762250000000042 -0.27622500000001327 0.150258864328"
+            rpy="-4.380300013396653e-18 2.2826754578358343e-17 -1.5707963267948966" />
+        <parent link="chassis" />
+        <child link="wheel_rotate_br" />
+    </joint>
+    <link name="wheel_spin_br">
+        <xacro:wheel_spin_br />
+        <visual>
+            <material name="grey" />
+            <geometry>
+                <mesh
+                    filename="file:///home/henrylec/frc_ws/robot_cad/MHi7D2mLxKz2UEbE8_M6JsOBdVntqtC8Vi_MBntFGXJDQrJ6aNt_MYjefcoCfa0Z3QoA1_1_combined.stl" />
+            </geometry>
+            <origin xyz="0.3906411412665209 -0.047599064148000136 -0.016840200000005773"
+                rpy="-1.570796326794897 -0.78539816339745 3.228190590967519e-17" />
+        </visual>
+    </link>
+    <joint name="wheel_rotate_br_to_wheel_spin_br" type="continuous">
+        <axis xyz="0 0 1" />
+        <origin xyz="0.011907819616537807 0.01190781961653753 -0.10265980017999995"
+            rpy="1.5707963267948968 -2.1008033958990508e-16 2.356194490192346" />
+        <parent link="wheel_rotate_br" />
+        <child link="wheel_spin_br" />
+    </joint>
+    <link name="wheel_rotate_fl">
+        <xacro:wheel_rotate_fl />
+        <visual>
+            <material name="grey" />
+            <geometry>
+                <mesh
+                    filename="file:///home/henrylec/frc_ws/robot_cad/MHi7D2mLxKz2UEbE8_MM1nL5IbeW75MG3B_MBntFGXJDQrJ6aNt_1_combined.stl" />
+            </geometry>
+            <origin xyz="-0.27622500000000066 0.2762249999999995 -0.150258864328"
+                rpy="-1.4791141972893978e-31 8.76060002679363e-18 -1.5707963267948966" />
+        </visual>
+    </link>
+    <joint name="chassis_to_wheel_rotate_fl" type="continuous">
+        <axis xyz="0 0 1" />
+        <origin xyz="0.27622499999999944 0.2762250000000006 0.150258864328"
+            rpy="-8.760600026793625e-18 -1.4791141972893971e-31 1.5707963267948966" />
+        <parent link="chassis" />
+        <child link="wheel_rotate_fl" />
+    </joint>
+    <link name="wheel_spin_fl">
+        <xacro:wheel_spin_fl />
+        <visual>
+            <material name="grey" />
+            <geometry>
+                <mesh
+                    filename="file:///home/henrylec/frc_ws/robot_cad/MHi7D2mLxKz2UEbE8_MM1nL5IbeW75MG3B_MBntFGXJDQrJ6aNt_MYjefcoCfa0Z3QoA1_1_combined.stl" />
+            </geometry>
+            <origin xyz="-0.3906411412665081 -0.04759906414799996 -0.016840199999999667"
+                rpy="-1.570796326794897 -0.78539816339745 3.228190590967519e-17" />
+        </visual>
+    </link>
+    <joint name="wheel_rotate_fl_to_wheel_spin_fl" type="continuous">
+        <axis xyz="0 0 1" />
+        <origin xyz="-0.011907819616537807 -0.01190781961653753 -0.10265980017999995"
+            rpy="1.5707963267948968 -2.1692927301543014e-16 -0.785398163397447" />
+        <parent link="wheel_rotate_fl" />
+        <child link="wheel_spin_fl" />
+    </joint>
+    <link name="wheel_rotate_fr">
+        <xacro:wheel_rotate_fr />
+        <visual>
+            <material name="grey" />
+            <geometry>
+                <mesh
+                    filename="file:///home/henrylec/frc_ws/robot_cad/MHi7D2mLxKz2UEbE8_MZBM2uOGRGOJ+Slnf_MBntFGXJDQrJ6aNt_1_combined.stl" />
+            </geometry>
+            <origin xyz="-0.27622500000000016 0.2762249999999997 -0.150258864328"
+                rpy="4.380300013396828e-18 -2.282675457835739e-17 -1.6543612250060678e-24" />
+        </visual>
+    </link>
+    <joint name="chassis_to_wheel_rotate_fr" type="continuous">
+        <axis xyz="0 0 1" />
+        <origin xyz="0.2762250000000001 -0.27622499999999967 0.150258864328"
+            rpy="-4.3803000133968254e-18 2.2826754578357382e-17 1.654361225106056e-24" />
+        <parent link="chassis" />
+        <child link="wheel_rotate_fr" />
+    </joint>
+    <link name="wheel_spin_fr">
+        <xacro:wheel_spin_fr />
+        <visual>
+            <material name="grey" />
+            <geometry>
+                <mesh
+                    filename="file:///home/henrylec/frc_ws/robot_cad/MHi7D2mLxKz2UEbE8_MZBM2uOGRGOJ+Slnf_MBntFGXJDQrJ6aNt_MYjefcoCfa0Z3QoA1_1_combined.stl" />
+            </geometry>
+            <origin xyz="4.601396920514555e-16 -0.04759906414800015 -0.40748134126650815"
+                rpy="-1.570796326794897 -0.78539816339745 3.228190590967519e-17" />
+        </visual>
+    </link>
+    <joint name="wheel_rotate_fr_to_wheel_spin_fr" type="continuous">
+        <axis xyz="0 0 1" />
+        <origin xyz="0.011907819616537585 -0.011907819616537862 -0.10265980017999995"
+            rpy="1.5707963267948968 -2.42362245499581e-16 0.7853981633974497" />
+        <parent link="wheel_rotate_fr" />
+        <child link="wheel_spin_fr" />
+    </joint>
+    <link name="wheel_rotate_bl">
+        <xacro:wheel_rotate_bl />
+        <visual>
+            <material name="grey" />
+            <geometry>
+                <mesh
+                    filename="file:///home/henrylec/frc_ws/robot_cad/MHi7D2mLxKz2UEbE8_MtDM0EMGkD1439Xw_MBntFGXJDQrJ6aNt_1_combined.stl" />
+            </geometry>
+            <origin xyz="-0.2762250000000019 0.2762250000000006 -0.150258864328"
+                rpy="-4.380300013396532e-18 2.2826754578357342e-17 -3.141592653589793" />
+        </visual>
+    </link>
+    <joint name="chassis_to_wheel_rotate_bl" type="continuous">
+        <axis xyz="0 0 1" />
+        <origin xyz="-0.27622500000000183 0.27622500000000055 0.150258864328"
+            rpy="-4.3803000133965296e-18 2.2826754578357333e-17 -3.141592653589793" />
+        <parent link="chassis" />
+        <child link="wheel_rotate_bl" />
+    </joint>
+    <link name="wheel_spin_bl">
+        <xacro:wheel_spin_bl />
+        <visual>
+            <material name="grey" />
+            <geometry>
+                <mesh
+                    filename="file:///home/henrylec/frc_ws/robot_cad/MHi7D2mLxKz2UEbE8_MtDM0EMGkD1439Xw_MBntFGXJDQrJ6aNt_MYjefcoCfa0Z3QoA1_1_combined.stl" />
+            </geometry>
+            <origin xyz="4.878952676670845e-16 -0.04759906414799995 0.37380094126651"
+                rpy="-1.570796326794897 -0.78539816339745 3.228190590967519e-17" />
+        </visual>
+    </link>
+    <joint name="wheel_rotate_bl_to_wheel_spin_bl" type="continuous">
+        <axis xyz="0 0 1" />
+        <origin xyz="-0.011907819616537585 0.011907819616537807 -0.10265980017999995"
+            rpy="1.5707963267948968 -2.0388565990369733e-16 -2.3561944901923435" />
+        <parent link="wheel_rotate_bl" />
+        <child link="wheel_spin_bl" />
+    </joint>
+    <link name="idk_shaft">
+        <xacro:idk_shaft />
+        <visual>
+            <material name="grey" />
+            <geometry>
+                <mesh
+                    filename="file:///home/henrylec/frc_ws/robot_cad/MW+BlKV2TSLk6YJNt_Mkqcr13w+yxAzctd7_1_combined.stl" />
+            </geometry>
+            <origin xyz="0.26416454513455256 -0.11880778164294413 -0.07931999999999992"
+                rpy="-1.5707963267948968 -1.3678439566215498e-16 4.065758155672043e-20" />
+        </visual>
+    </link>
+    <joint name="chassis_to_idk_shaft" type="continuous">
+        <axis xyz="0 0 1" />
+        <origin xyz="-0.26416454513455234 -0.07931999999999997 0.11880778164294406"
+            rpy="1.5707963267948968 4.0657581556697065e-20 1.36784395662155e-16" />
+        <parent link="chassis" />
+        <child link="idk_shaft" />
+    </joint>
+    <link name="idk_pulley">
+        <xacro:idk_pulley />
+        <visual>
+            <material name="grey" />
+            <geometry>
+                <mesh
+                    filename="file:///home/henrylec/frc_ws/robot_cad/MW+BlKV2TSLk6YJNt_9_combined.stl" />
+            </geometry>
+            <origin xyz="-0.21907360397807288 -0.18948602039496487 0.07881999999999995"
+                rpy="1.5707963267948966 7.387960756659453e-17 -2.8511328457070833" />
+        </visual>
+    </link>
+    <joint name="idk_shaft_to_idk_pulley" type="continuous">
+        <axis xyz="0 0 1" />
+        <origin xyz="0.0 0.0 -0.0005000000000000004"
+            rpy="-3.141592653589793 5.71570827142359e-17 -2.8511328457070833" />
+        <parent link="idk_shaft" />
+        <child link="idk_pulley" />
+    </joint>
+</robot>

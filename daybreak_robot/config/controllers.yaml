@@ -1,6 +1,6 @@
 controller_manager:
   ros__parameters:
-    update_rate: 30
+    update_rate: 100
 
     joint_broad:
       type: joint_state_broadcaster/JointStateBroadcaster
@@ -8,13 +8,18 @@ controller_manager:
     swerve_drive_controller:
       type: swerve_drive_controller/SwerveDriveController
     
+    hammer_trajectory_controller:
+      type: "joint_trajectory_controller/JointTrajectoryController"
+    
 
 joint_broad:
   ros__parameters:
-    update_rate: 30
+    update_rate: 100
 
 swerve_drive_controller:
   ros__parameters:
+    update_rate: 100
+  
     wheel_names:
       - front_left
       - front_right
@@ -23,28 +28,58 @@ swerve_drive_controller:
     
     joints:
       front_left:
-        steer: front_left_wheel_rotate_joint
-        wheel: front_left_wheel_joint
+        steer: chassis_to_wheel_rotate_fl
+        wheel: wheel_rotate_fl_to_wheel_spin_fl
       front_right:
-        steer: front_right_wheel_rotate_joint
-        wheel: front_right_wheel_joint
+        steer: chassis_to_wheel_rotate_fr
+        wheel: wheel_rotate_fr_to_wheel_spin_fr
       rear_left:
-        steer: rear_left_wheel_rotate_joint
-        wheel: rear_left_wheel_joint
+        steer: chassis_to_wheel_rotate_bl
+        wheel: wheel_rotate_bl_to_wheel_spin_bl
       rear_right:
-        steer: rear_right_wheel_rotate_joint
-        wheel: rear_right_wheel_joint
+        steer: chassis_to_wheel_rotate_br
+        wheel: wheel_rotate_br_to_wheel_spin_br
 
     translations:
       front_left:
-        x: 0.3175
-        y: 0.3175
+        x: 0.276225
+        y: 0.276225
       front_right:
-        x: 0.3175
-        y: -0.3175
+        x: 0.276225
+        y: -0.276225
       rear_left:
-        x: -0.3175
-        y: 0.3175
+        x: -0.276225
+        y: 0.276225
       rear_right:
-        x: -0.3175
-        y: -0.3175
+        x: -0.276225
+        y: -0.276225
+
+    absolute_offsets:
+      front_left:
+        offset: 2.36
+      front_right:
+        offset: 2.36
+      rear_left:
+        offset: 2.36
+      rear_right:
+        offset: 2.36
+
+hammer_trajectory_controller:
+  ros__parameters:
+    joints:
+      - pivot_block_to_hammer
+    
+    command_interfaces:
+      - position
+      - velocity
+
+    state_interfaces:
+      - position
+      - velocity
+    
+    constraints:
+      stopped_velocity_tolerance: 0.01
+      goal_time: 0.0
+      pivot_block_to_hammer:
+        trajectory: 0.05
+        goal: 0.03

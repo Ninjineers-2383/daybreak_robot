@@ -1,0 +1,30 @@
+<root BTCPP_format="4">
+    <BehaviorTree ID="DrivePath">
+        <Sequence>
+            <ParallelDeadlineAll>
+                <PathplannerPath action_name="daybreak_robot_driveforward_follow"
+                    path_seconds="{seconds}"
+                    path_error="{error}" />
+                <Script code="seconds=0.0;error=0.0" />
+                <KeepRunningUntilFailure>
+                    <Sequence>
+                        <Script
+                            code="msg := 'Running for ' .. seconds .. ' seconds with error ' .. error" />
+                        <LogString message="{msg}" />
+                    </Sequence>
+                </KeepRunningUntilFailure>
+                <Precondition if="seconds > 1.0" else="SKIPPED">
+                    <Sequence>
+                        <GetJointTrajectoryState
+                            service_name="/hammer_trajectory_controller/query_state"
+                            trajectory_state="{initial}" />
+                        <FollowJointTrajectory
+                            action_name="/hammer_trajectory_controller/follow_joint_trajectory"
+                            trajectory_points='[{"positions": [3.1], "time_from_start": {"sec": 6, "nanosec": 0}}]'
+                            initial_state="{initial}" />
+                    </Sequence>
+                </Precondition>
+            </ParallelDeadlineAll>
+        </Sequence>
+    </BehaviorTree>
+</root>
