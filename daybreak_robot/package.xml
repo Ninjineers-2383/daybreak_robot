@@ -16,7 +16,6 @@
   <exec_depend>behaviortree_ros2</exec_depend>
   <exec_depend>roborio_bridge</exec_depend>
   <exec_depend>daybreak_robot_coordinator</exec_depend>
-  <exec_depend>daybreak_robotbt_actions</exec_depend>
 
   <export>
     <build_type>ament_cmake</build_type>
